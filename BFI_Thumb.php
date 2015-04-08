@@ -606,16 +606,16 @@ if ( ! class_exists( 'BFI_Thumb_1_3' ) ) {
             // if file exists, just return it
             if (@file_exists($destfilename) && getimagesize($destfilename)) {
             } else {
-
-                // Regular image
+				
+				// Regular image
                 $p = array(
-                    'width' => $width,
-                    'height' => $height,
-                    'crop' => $crop,
-                    'negate' => $negate,
-                    'opacity' => $opacity,
-                    'grayscale' => $grayscale,
-                    'color' => $color
+                    'width' => isset($width) ? $width : null,
+                    'height' => isset($height) ? $height : null,
+                    'crop' => isset($crop) ? $crop : null,
+                    'negate' => isset($negate) ? $negate : null,
+                    'opacity' => isset($opacity) ? $opacity : null,
+                    'grayscale' => isset($grayscale) ? $grayscale : null,
+                    'color' => isset($color) ? $color : null,
                 );
                 $res = self::resize_img($img_path, $destfilename, $quality, $p);
                 if (!$res) {
@@ -623,15 +623,8 @@ if ( ! class_exists( 'BFI_Thumb_1_3' ) ) {
                 }
 
                 // Retina
-                $p = array(
-                    'width' => $width*2,
-                    'height' => $height*2,
-                    'crop' => $crop,
-                    'negate' => $negate,
-                    'opacity' => $opacity,
-                    'grayscale' => $grayscale,
-                    'color' => $color
-                );
+                $p['width'] = isset($width) ? $width*2 : null;
+                $p['height'] = isset($height) ? $height*2 : null;
                 self::resize_img($img_path, $destfilename_ret, $quality, $p);
             }
 
